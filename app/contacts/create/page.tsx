@@ -1,4 +1,4 @@
-import { CreateForm } from "@/app/components/create-form";
+import CreateForm from "@/app/components/create-form";
 
 const CreateContactPage = () => {
     return (

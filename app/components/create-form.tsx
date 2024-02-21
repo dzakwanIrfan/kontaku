@@ -1,6 +1,12 @@
-export const CreateForm = () => {
+"use client";
+
+import { saveContact } from "@/lib/action";
+import { useFormState } from "react-dom";
+
+const CreateForm = () => {
+    const [state, formAction] = useFormState(saveContact, null);
     return (
-        <form action="">
+        <form action={formAction}>
             <div className="mb-5">
                 <label 
                     htmlFor="name" 
@@ -14,6 +20,9 @@ export const CreateForm = () => {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" 
                     placeholder="Full Name.."    
                 />
+                <div id="name-error" aria-live="polite" aria-atomic="true">
+                    <p className="mt-2 text-sm text-red-500">{state?.Error?.name}</p>
+                </div>
             </div>
             <div className="mb-5">
                 <label 
@@ -28,6 +37,12 @@ export const CreateForm = () => {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" 
                     placeholder="Phone Number.."    
                 />
+                <div id="phone-error" aria-live="polite" aria-atomic="true">
+                    <p className="mt-2 text-sm text-red-500">{state?.Error?.phone}</p>
+                </div>
+            </div>
+            <div id="message-error" aria-live="polite" aria-atomic="true">
+                <p className="mt-2 text-sm text-red-500">{state?.message}</p>
             </div>
             <button
                 type="submit"
@@ -38,3 +53,5 @@ export const CreateForm = () => {
         </form>
     );
 }
+
+export default CreateForm;
