@@ -3,6 +3,8 @@ import Search from "../components/search";
 import Pagination from "../components/pagination";
 import { CreateButton } from "../components/button";
 import { getContactPages } from "@/lib/data";
+import { TableSkeleton } from "../components/skeleton";
+import { Suspense } from "react";
 
 const Contacts = async ({
     searchParams
@@ -23,7 +25,9 @@ const Contacts = async ({
                 <Search />
                 <CreateButton />
             </div> 
-            <ContactTable query={query} currentPage={currentPage}/>
+            <Suspense key={query + currentPage} fallback={<TableSkeleton />}>
+                <ContactTable query={query} currentPage={currentPage}/>
+            </Suspense>
             <div className="flex justify-center mt-4">
                 <Pagination totalPages={totalPages} />
             </div>

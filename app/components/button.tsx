@@ -37,6 +37,7 @@ export const DeleteButton = ({id}: {id:string}) => {
         >
             <button
                 className="rounded-sm border p-1 hover:bg-gray-100"
+                title="Delete Contact"
             >
                 <IoTrashOutline size={20} />
             </button>
