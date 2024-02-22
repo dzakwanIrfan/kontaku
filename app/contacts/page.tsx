@@ -1,8 +1,10 @@
 import ContactTable from "../components/contact-table";
 import Search from "../components/search";
+import Pagination from "../components/pagination";
 import { CreateButton } from "../components/button";
+import { getContactPages } from "@/lib/data";
 
-const Contacts = ({
+const Contacts = async ({
     searchParams
 }:{
     searchParams?:{
@@ -13,13 +15,18 @@ const Contacts = ({
     const query = searchParams?.query || "";
     const currentPage = Number(searchParams?.page)  || 1;
 
+    const totalPages = await getContactPages(query);
+
     return (
         <div className="container max-w-screen-md mx-auto mt-5">
            <div className="flex items-center justify-between gap-1 mb-5">
                 <Search />
                 <CreateButton />
             </div> 
-           <ContactTable query={query} currentPage={currentPage}/>
+            <ContactTable query={query} currentPage={currentPage}/>
+            <div className="flex justify-center mt-4">
+                <Pagination totalPages={totalPages} />
+            </div>
         </div>
     );
 }
