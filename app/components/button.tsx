@@ -4,6 +4,7 @@ import Link from "next/link";
 import {IoAddSharp, IoPencil, IoTrashOutline} from "react-icons/io5";
 import { useFormStatus } from "react-dom";
 import clsx from "clsx";
+import { deleteContact } from "@/lib/action";
 
 export const CreateButton = () => {
     return (
@@ -17,10 +18,10 @@ export const CreateButton = () => {
     );
 }
 
-export const EditButton = () => {
+export const EditButton = ({id}: {id:string}) => {
     return (
         <Link
-            href="/contacts/edit"
+            href={`/contacts/edit/${id}`}
             className="rounded-sm border p-1 hover:bg-gray-100"
         >
             <IoPencil size={20} />
@@ -28,13 +29,18 @@ export const EditButton = () => {
     );
 }
 
-export const DeleteButton = () => {
+export const DeleteButton = ({id}: {id:string}) => {
+    const DeleteContactWithId = deleteContact.bind(null, id);
     return (
-        <button
-            className="rounded-sm border p-1 hover:bg-gray-100"
+        <form
+            action={DeleteContactWithId}
         >
-            <IoTrashOutline size={20} />
-        </button>
+            <button
+                className="rounded-sm border p-1 hover:bg-gray-100"
+            >
+                <IoTrashOutline size={20} />
+            </button>
+        </form>
     );
 }
 
